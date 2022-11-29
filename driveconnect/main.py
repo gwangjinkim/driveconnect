@@ -45,17 +45,19 @@ def _disconnect_drive(drive_letter):
     # print(cmd_)
     return cmd(cmd_)
 
-def connect_drive(drive_letter, server_path, user_file=None, pass_file=None):
+def connect_drive(drive_letter, server_path, user_file=None, pass_file=None, username=None, password=None):
     drive_letter = drive_letter.rstrip(':')
-    server_path = server_path.lstrip('\\')
     if not is_drive_connected(drive_letter):
         if user_file is None and pass_file is None:
+            server_path = server_path.lstrip('\\')
             cmd_ = f"net use {drive_letter}: \\\\{server_path}"
             # print(cmd_)
             cmd(cmd_)
-        else:
+        elif user_file is not None and pass_file is not None:
             co = pss.get_credentials(user_file, pass_file)
             _connect_drive(drive_letter, server_path, co.username, co.password)
+        elif username is not None and password is not None:
+            _connect_drive(drive_letter, server_path, username, password)
         print(f"{server_path} successfully connected to {drive_letter}:")
 
 def disconnect_drive(drive_letter):
