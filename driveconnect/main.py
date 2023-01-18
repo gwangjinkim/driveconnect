@@ -87,11 +87,11 @@ def _disconnect_drive(drive_letter, log=None, level="info", _print=False):
     cmd_ = f"net use {drive_letter}: /del"
     return cmd(cmd_, log=log, level=level, _print=_print)
 
-def _assess_connection(drive_letter, server_path, log=None, level="info", _print=False):
+def _assess_connection(drive_letter, server_path=None, log=None, level="info", _print=False):
     if is_drive_connected(drive_letter):
-        log_it(log, level, f"{server_path} is connected by {drive_letter}:", _print=_print)
+        log_it(log, level, f"{'Server' if server_path is None else server_path} is connected by {drive_letter}:", _print=_print)
     else:
-        log_it(log, level, f"{server_path} is not connected by {drive_letter}.", _print=_print)
+        log_it(log, level, f"{'Server' if server_path is None else server_path} is not connected by {drive_letter}.", _print=_print)
 
 def connect_drive(drive_letter, server_path, username=None, password=None, co=None, log=None, level="info", _print=False, reconnect=False):
     '''
@@ -122,4 +122,4 @@ def disconnect_drive(drive_letter, log=None, level="info", _print=False):
     else:
         log_it(log, level, f"{drive_letter} is already disconnected.", _print=_print)
     # when exciting, display the current state:
-    _assess_connection(drive_letter=drive_letter, server_path=server_path, log=log, level=level, _print=_print)
+    _assess_connection(drive_letter=drive_letter, log=log, level=level, _print=_print)
