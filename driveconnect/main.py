@@ -96,7 +96,9 @@ def _disconnect_drive(drive_letter, log=None, level="info", _print=False):
     return cmd(cmd_, log=log, level=level, _print=_print)
 
 def _assess_connection(drive_letter, server_path=None, log=None, level="info", _print=False):
-    server_path = f"\\\\{server_path.lstrip('\\')}"
+    if server_path is not None:
+        server_path = server_path.lstrip('\\')
+        server_path = f"\\\\{server_path}"
     if is_drive_connected(drive_letter):
         log_it(log, level, f"`{'Server' if server_path is None else server_path}` is connected via `{drive_letter}:`", _print=_print)
     else:
