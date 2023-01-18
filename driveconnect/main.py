@@ -84,7 +84,7 @@ def _disconnect_drive(drive_letter, log=None, level="info", _print=False):
     Disconnect the drive (`net use` in cmd.exe).
     '''
     drive_letter = drive_letter.rstrip(':')
-    cmd_ = f"net use {drive_letter}: /del"
+    cmd_ = f"net use {drive_letter}: /del /y"  # the /y is silently set prompt to `Yes`
     return cmd(cmd_, log=log, level=level, _print=_print)
 
 def _assess_connection(drive_letter, server_path=None, log=None, level="info", _print=False):
