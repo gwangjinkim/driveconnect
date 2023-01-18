@@ -8,6 +8,14 @@ import subprocess
 # initialize pprint
 pp = pprint.PrettyPrinter(width=41)
 
+def set_pprint_width(width):
+    '''
+    Reset pretty printer width value
+    '''
+    global pp
+    pp._width = width
+
+
 # for logging
 
 def log_it(log, level, message, _print=False):
