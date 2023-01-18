@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "driveconnect"
-version = "0.1.11"
+version = "0.1.12"
 description = "Test whether a Windows drive is connected, and connect it."
 authors = ["Gwang-Jin Kim <gwang.jin.kim.phd@gmail.com>"]
 readme = "README.md"

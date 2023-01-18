@@ -96,6 +96,7 @@ def _disconnect_drive(drive_letter, log=None, level="info", _print=False):
     return cmd(cmd_, log=log, level=level, _print=_print)
 
 def _assess_connection(drive_letter, server_path=None, log=None, level="info", _print=False):
+    server_path = f"\\\\{server_path.lstrip('\\')}"
     if is_drive_connected(drive_letter):
         log_it(log, level, f"`{'Server' if server_path is None else server_path}` is connected via `{drive_letter}:`", _print=_print)
     else:
@@ -111,7 +112,7 @@ def connect_drive(drive_letter, server_path, username=None, password=None, co=No
         log_it(log, level, f"Drive `{drive_letter}:` is already connected. Reconnecting the drive.", _print=_print)
         _disconnect_drive(drive_letter, log=log, level=level, _print=_print)
         log_it(log, level, f"Attempting to reconnect `{drive_letter}:` to `{server_path}`.", _print=_print)
-        connect_drive(drive_letter, server_path, username, password, co=co, log=log, level=level, _print=_print)
+        return connect_drive(drive_letter, server_path, username, password, co=co, log=log, level=level, _print=_print)
     elif username is None and password is None and co is None:                  # in this case, interactively input password
         server_path = server_path.lstrip('\\')                                  # ensuring correct `\\\\` in front of server path
         cmd_ = f"net use {drive_letter}: \\\\{server_path}"
