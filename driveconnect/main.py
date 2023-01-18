@@ -109,7 +109,6 @@ def connect_drive(drive_letter, server_path, username=None, password=None, co=No
         cmd_ = f"net use {drive_letter}: \\\\{server_path}"
         cmd(cmd_, log=log, level=level, _print=_print)
     elif co is not None:
-        co = pss.get_credentials(user_file, pass_file)
         _connect_drive(drive_letter, server_path, co.username, co.password, log=log, level=level, _print=_print)
     elif username is not None and password is not None:
         _connect_drive(drive_letter, server_path, username, password, log=log, level=level, _print=_print)

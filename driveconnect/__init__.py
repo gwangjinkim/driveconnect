@@ -1,4 +1,3 @@
-__version__ = '0.1.1'
+__version__ = '0.1.6'
 
 from .main import is_drive_connected, connect_drive, disconnect_drive
-import pysecstring as pss
