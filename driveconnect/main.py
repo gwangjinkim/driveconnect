@@ -99,7 +99,7 @@ def _assess_connection(drive_letter, server_path=None, log=None, level="info", _
     if is_drive_connected(drive_letter):
         log_it(log, level, f"`{'Server' if server_path is None else server_path}` is connected via `{drive_letter}:`", _print=_print)
     else:
-        log_it(log, level, f"`{'Server' if server_path is None else server_path}` is not connected via {drive_letter}`.", _print=_print)
+        log_it(log, level, f"`{'Server' if server_path is None else server_path}` is not connected via `{drive_letter}`.", _print=_print)
 
 def connect_drive(drive_letter, server_path, username=None, password=None, co=None, log=None, level="info", _print=False, reconnect=False):
     '''
@@ -111,8 +111,8 @@ def connect_drive(drive_letter, server_path, username=None, password=None, co=No
         log_it(log, level, f"Drive `{drive_letter}:` is already connected. Reconnecting the drive.", _print=_print)
         _disconnect_drive(drive_letter, log=log, level=level, _print=_print)
         log_it(log, level, f"Attempting to reconnect `{drive_letter}:` to `{server_path}`.", _print=_print)
-        _connect_drive(drive_letter, server_path, co.username, co.password, log=log, level=level, _print=_print)
-    elif username is None and password is None and co is None:                    # in this case, interactively input password
+        connect_drive(drive_letter, server_path, username, password, co=co, log=log, level=level, _print=_print)
+    elif username is None and password is None and co is None:                  # in this case, interactively input password
         server_path = server_path.lstrip('\\')                                  # ensuring correct `\\\\` in front of server path
         cmd_ = f"net use {drive_letter}: \\\\{server_path}"
         cmd(cmd_, log=log, level=level, _print=_print)
@@ -128,6 +128,6 @@ def disconnect_drive(drive_letter, log=None, level="info", _print=False):
     if is_drive_connected(drive_letter):
         _disconnect_drive(drive_letter, log=log, level=level, _print=_print)
     else:
-        log_it(log, level, f"{drive_letter} is already disconnected.", _print=_print)
+        log_it(log, level, f"`{drive_letter}:` is already disconnected.", _print=_print)
     # when exciting, display the current state:
     _assess_connection(drive_letter=drive_letter, log=log, level=level, _print=_print)
