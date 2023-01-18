@@ -115,6 +115,9 @@ def connect_drive(drive_letter, server_path, username=None, password=None, co=No
         _disconnect_drive(drive_letter, log=log, level=level, _print=_print)
         log_it(log, level, f"Attempting to reconnect `{drive_letter}:` to `{server_path}`.", _print=_print)
         return connect_drive(drive_letter, server_path, username, password, co=co, log=log, level=level, _print=_print)
+    elif is_drive_connected(drive_letter):
+        log_it(log, level, f"Drive `{drive_letter}:` is already connected. No reconnection requested.", _print=_print)
+        return None
     elif username is None and password is None and co is None:                  # in this case, interactively input password
         server_path = server_path.lstrip('\\')                                  # ensuring correct `\\\\` in front of server path
         cmd_ = f"net use {drive_letter}: \\\\{server_path}"
